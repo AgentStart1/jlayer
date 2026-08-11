@@ -1,7 +1,6 @@
-[![Release](https://jitpack.io/v/umjammer/jlayer.svg)](https://jitpack.io/#umjammer/jlayer)
-[![Java CI](https://github.com/umjammer/jlayer/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/jlayer/actions/workflows/maven.yml)
-[![CodeQL](https://github.com/umjammer/jlayer/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/jlayer/actions/workflows/codeql-analysis.yml)
+[![Java CI](https://github.com/AgentStart1/jlayer/actions/workflows/test.yml/badge.svg)](https://github.com/AgentStart1/jlayer/actions/workflows/test.yml)
 ![Java](https://img.shields.io/badge/Java-17-b07219)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.AgentStart1/jlayer)](https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer)
 [![Parent](https://img.shields.io/badge/Parent-mp3spi-pink)](https://github.com/umjammer/mp3spi)
 
 # JLayer
@@ -12,7 +11,19 @@ MP3 Decoder in pure Java.
 
 ## Install
 
- * [maven](https://jitpack.io/#umjammer/jlayer)
+ * [maven central](https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer)
+
+```xml
+<dependency>
+    <groupId>io.github.AgentStart1</groupId>
+    <artifactId>jlayer</artifactId>
+    <version>1.0.4</version>
+</dependency>
+```
+
+```kotlin
+implementation("io.github.AgentStart1:jlayer:1.0.4")
+```
 
 ## Usage
 
@@ -45,7 +56,7 @@ and anyone can add his contribution. JLayer is licensed under LGPL (see [LICENSE
 
 ### How to install JLayer ?
 
- * https://jitpack.io/#umjammer/jlayer
+ * https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer
 
 ### Do I need JMF to run JLayer player ?
 

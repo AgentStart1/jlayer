@@ -22,13 +22,15 @@ package javazoom.jl.player;
 
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javazoom.jl.player.my.MyJavaSoundAudioDevice;
 import javazoom.jl.player.my.MyJavaSoundAudioDeviceFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import vavix.util.DelayedWorker;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -44,6 +46,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class jlpTest {
 
     static final float volume = (float) Double.parseDouble(System.getProperty("vavi.test.volume",  "0.2"));
+
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     private Properties props = null;
     private String filename = null;
@@ -69,7 +73,7 @@ class jlpTest {
         args[0] = filename;
         jlp player = jlp.createInstance(args);
         player.setAudioDevice(FactoryRegistry.systemRegistry().createAudioDevice(JavaSoundAudioDeviceFactory.class));
-        DelayedWorker.later(3000, player::stop);
+        scheduler.schedule(player::stop, 3, TimeUnit.SECONDS);
         player.play();
         assertTrue(true, "Play");
     }
@@ -82,7 +86,7 @@ class jlpTest {
         jlp player = jlp.createInstance(args);
         // my audio device might have first priority
         ((MyJavaSoundAudioDevice) player.setAudioDevice()).setVolume(volume);
-        DelayedWorker.later(3000, player::stop);
+        scheduler.schedule(player::stop, 3, TimeUnit.SECONDS);
         player.play();
         assertTrue(true, "Play");
     }
@@ -95,7 +99,7 @@ class jlpTest {
         jlp player = jlp.createInstance(args);
         player.setAudioDevice(FactoryRegistry.systemRegistry().createAudioDevice(MyJavaSoundAudioDeviceFactory.class));
         ((MyJavaSoundAudioDevice) player.setAudioDevice()).setVolume(volume);
-        DelayedWorker.later(3000, player::stop);
+        scheduler.schedule(player::stop, 3, TimeUnit.SECONDS);
         player.play();
         assertTrue(true, "Play");
     }
