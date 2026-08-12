@@ -65,14 +65,14 @@ public class MyJavaSoundAudioDevice extends AudioDeviceBase {
     /** @param gain 0 ~ 1 */
     public void setVolume(float gain) {
         this.gain = (float) (Math.log10(gain) * 20.0);
-logger.log(Level.FINE,"volume: " + gain + ", " + hashCode());
+        logger.log(Level.FINE, "volume: {0}, {1}", new Object[]{gain, hashCode()});
     }
 
     /** */
     private void setLineGain() {
         FloatControl volControl = (FloatControl) source.getControl(FloatControl.Type.MASTER_GAIN);
         volControl.setValue(gain);
-logger.log(Level.FINE,"volume: " + gain + ", " + hashCode());
+        logger.log(Level.FINE, "volume: {0}, {1}", new Object[]{gain, hashCode()});
     }
 
     @Override

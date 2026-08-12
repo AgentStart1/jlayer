@@ -17,12 +17,12 @@ MP3 Decoder in pure Java.
 <dependency>
     <groupId>io.github.AgentStart1</groupId>
     <artifactId>jlayer</artifactId>
-    <version>1.0.4</version>
+    <version>${latest.version}</version>
 </dependency>
 ```
 
 ```kotlin
-implementation("io.github.AgentStart1:jlayer:1.0.4")
+implementation("io.github.AgentStart1:jlayer:${latest.version}")
 ```
 
 ## Usage

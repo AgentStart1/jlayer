@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import javazoom.jl.player.my.MyJavaSoundAudioDevice;
 import javazoom.jl.player.my.MyJavaSoundAudioDeviceFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,11 @@ class jlpTest {
         filename = basefile + name;
         System.err.println(filename);
         time = System.getProperty("vavi.test", "").equals("ide") ? 100000 : 3000;
+    }
+
+    @AfterEach
+    void tearDown() {
+        scheduler.shutdownNow();
     }
 
     @Test
