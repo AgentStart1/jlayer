@@ -24,11 +24,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vavi.util.Debug;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,6 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @since 0.4
  */
 public class BitstreamTest {
+
+    private static final Logger logger = Logger.getLogger(BitstreamTest.class.getName());
 
     private String basefile = null;
     private String name = null;
@@ -74,32 +76,32 @@ public class BitstreamTest {
         InputStream id3in = in.getRawID3v2();
         int size = id3in.available();
         Header header = in.readFrame();
-        Debug.println(Level.FINE, "--- " + filename + " ---");
-        Debug.println(Level.FINE, "ID3v2Size=" + size);
-        Debug.println(Level.FINE, "version=" + header.version());
-        Debug.println(Level.FINE, "version_string=" + header.versionString());
-        Debug.println(Level.FINE, "layer=" + header.layer());
-        Debug.println(Level.FINE, "frequency=" + header.frequency());
-        Debug.println(Level.FINE, "frequency_string=" + header.sampleFrequencyString());
-        Debug.println(Level.FINE, "bitrate=" + header.bitrate());
-        Debug.println(Level.FINE, "bitrate_string=" + header.bitrateString());
-        Debug.println(Level.FINE, "mode=" + header.mode());
-        Debug.println(Level.FINE, "mode_string=" + header.modeString());
-        Debug.println(Level.FINE, "slots=" + header.slots());
-        Debug.println(Level.FINE, "vbr=" + header.vbr());
-        Debug.println(Level.FINE, "vbr_scale=" + header.vbrScale());
-        Debug.println(Level.FINE, "max_number_of_frames=" + header.maxNumberOfFrames(mp3in.available()));
-        Debug.println(Level.FINE, "min_number_of_frames=" + header.minNumberOfFrames(mp3in.available()));
-        Debug.println(Level.FINE, "ms_per_frame=" + header.msPerFrame());
-        Debug.println(Level.FINE, "frames_per_second=" + (float) ((1.0 / (header.msPerFrame())) * 1000.0));
-        Debug.println(Level.FINE, "total_ms=" + header.totalMs(mp3in.available()));
-        Debug.println(Level.FINE, "SyncHeader=" + header.getSyncHeader());
-        Debug.println(Level.FINE, "checksums=" + header.checksums());
-        Debug.println(Level.FINE, "copyright=" + header.copyright());
-        Debug.println(Level.FINE, "original=" + header.original());
-        Debug.println(Level.FINE, "padding=" + header.padding());
-        Debug.println(Level.FINE, "framesize=" + header.calculateFrameSize());
-        Debug.println(Level.FINE, "number_of_subbands=" + header.numberOfSubbands());
+        logger.log(Level.FINE, "--- {0} ---", filename);
+        logger.log(Level.FINE, "ID3v2Size={0}", size);
+        logger.log(Level.FINE, "version={0}", header.version());
+        logger.log(Level.FINE, "version_string={0}", header.versionString());
+        logger.log(Level.FINE, "layer={0}", header.layer());
+        logger.log(Level.FINE, "frequency={0}", header.frequency());
+        logger.log(Level.FINE, "frequency_string={0}", header.sampleFrequencyString());
+        logger.log(Level.FINE, "bitrate={0}", header.bitrate());
+        logger.log(Level.FINE, "bitrate_string={0}", header.bitrateString());
+        logger.log(Level.FINE, "mode={0}", header.mode());
+        logger.log(Level.FINE, "mode_string={0}", header.modeString());
+        logger.log(Level.FINE, "slots={0}", header.slots());
+        logger.log(Level.FINE, "vbr={0}", header.vbr());
+        logger.log(Level.FINE, "vbr_scale={0}", header.vbrScale());
+        logger.log(Level.FINE, "max_number_of_frames={0}", header.maxNumberOfFrames(mp3in.available()));
+        logger.log(Level.FINE, "min_number_of_frames={0}", header.minNumberOfFrames(mp3in.available()));
+        logger.log(Level.FINE, "ms_per_frame={0}", header.msPerFrame());
+        logger.log(Level.FINE, "frames_per_second={0}", (float) ((1.0 / (header.msPerFrame())) * 1000.0));
+        logger.log(Level.FINE, "total_ms={0}", header.totalMs(mp3in.available()));
+        logger.log(Level.FINE, "SyncHeader={0}", header.getSyncHeader());
+        logger.log(Level.FINE, "checksums={0}", header.checksums());
+        logger.log(Level.FINE, "copyright={0}", header.copyright());
+        logger.log(Level.FINE, "original={0}", header.original());
+        logger.log(Level.FINE, "padding={0}", header.padding());
+        logger.log(Level.FINE, "framesize={0}", header.calculateFrameSize());
+        logger.log(Level.FINE, "number_of_subbands={0}", header.numberOfSubbands());
         assertEquals(Integer.parseInt(props.getProperty("ID3v2Size")), size, "ID3v2Size");
         assertEquals(Integer.parseInt(props.getProperty("version")), header.version(), "version");
         assertEquals(props.getProperty("version_string"), header.versionString(), "version_string");

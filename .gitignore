@@ -6,3 +6,13 @@ playerapplet.html
 setEnvAnt.bat
 doc
 tmp/
+
+# Gradle
+.gradle/
+build/
+local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
