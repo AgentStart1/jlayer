@@ -1,7 +1,5 @@
 [![Java CI](https://github.com/AgentStart1/jlayer/actions/workflows/test.yml/badge.svg)](https://github.com/AgentStart1/jlayer/actions/workflows/test.yml)
-![Java](https://img.shields.io/badge/Java-17-b07219)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.AgentStart1/jlayer)](https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer)
-[![Parent](https://img.shields.io/badge/Parent-mp3spi-pink)](https://github.com/umjammer/mp3spi)
 
 # JLayer
 
