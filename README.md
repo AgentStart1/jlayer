@@ -3,115 +3,124 @@
 
 # JLayer
 
-<img alt="mp3 logo" src="https://github.com/umjammer/mp3spi/assets/493908/b718b78d-15c6-4356-a5ca-fca63ad7ffcb" width=160 /><sub><a href="https://www.iis.fraunhofer.de/de/ff/amm/unterhaltungselektronik/mp3.html">🅮 fraunhofer</a></sub>
+JLayer is a pure Java library for decoding, playing, and converting MPEG audio:
 
-MP3 Decoder in pure Java.
+- MPEG 1, 2, and 2.5
+- Layers I, II, and III (MP3)
+- VBRI and Xing VBR headers
+- ID3v2 frame access through the decoder API
+- Local-file and URL streaming playback
 
-## Install
+JLayer uses the Java Sound API for playback and has no production dependencies.
 
- * [maven central](https://central.sonatype.com/artifact/io.github.storytellerf/jlayer)
+## Requirements
+
+- Java 17 or newer
+- Java Sound support for playback
+
+## Installation
+
+JLayer is published to [Maven Central](https://central.sonatype.com/artifact/io.github.storytellerf/jlayer).
+
+### Maven
 
 ```xml
 <dependency>
     <groupId>io.github.storytellerf</groupId>
     <artifactId>jlayer</artifactId>
-    <version>${latest.version}</version>
+    <version>${jlayer.version}</version>
 </dependency>
 ```
 
+### Gradle
+
 ```kotlin
-implementation("io.github.storytellerf:jlayer:${latest.version}")
+implementation("io.github.storytellerf:jlayer:${jlayerVersion}")
 ```
 
 ## Usage
 
- * [sample](src/test/java/javazoom/jl/player/jlpTest.java)
+### Play an MP3 from Java
 
-## References
+```java
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-## TODO
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
-----
+public final class PlayMp3 {
+    private PlayMp3() {
+    }
 
-# Original
+    public static void main(String[] args) throws Exception {
+        if (args.length != 1) {
+            throw new IllegalArgumentException("Usage: PlayMp3 <file.mp3>");
+        }
 
- JavaZOOM 1999-2008
-
- Project Homepage :<br/>
-   [http://www.javazoom.net/javalayer/javalayer.html](https://web.archive.org/web/20210108055829/http://www.javazoom.net/javalayer/javalayer.html) 
-
- JAVA and MP3 online Forums :<br/>
-   [http://www.javazoom.net/services/forums/index.jsp](https://web.archive.org/web/20041010053627/http://www.javazoom.net/services/forums/index.jsp)
-
-## DESCRIPTION
-
-JLayer is a library that decodes/plays/converts MPEG 1/2/2.5 Layer 1/2/3
-(i.e. MP3) in real time for the JAVA(tm) platform. This is a non-commercial project 
-and anyone can add his contribution. JLayer is licensed under LGPL (see [LICENSE](LICENSE.txt)).
-
-
-## FAQ
-
-### How to install JLayer ?
-
- * https://central.sonatype.com/artifact/io.github.storytellerf/jlayer
-
-### Do I need JMF to run JLayer player ?
-
-  No, JMF is not required. You just need a JVM JavaSound 1.0 compliant.
-  (i.e. JVM1.3 or higher).
-
-### How to run the MP3TOWAV converter ?
-
-```
-  java javazoom.jl.converter.jlc -v -p output.wav yourfile.mp3
+        try (InputStream input = Files.newInputStream(Path.of(args[0]))) {
+            Player player = new Player(input);
+            player.play();
+        } catch (JavaLayerException exception) {
+            throw new RuntimeException("Unable to play MP3", exception);
+        }
+    }
+}
 ```
 
-  (Note : MP3TOWAV converter should work under jdk1.1.x or higher)
+The lower-level player API also accepts any `InputStream`, so it can be used with
+network streams and other application-provided sources.
 
-### How to run the simple MP3 player ?
+### Convert MP3 to WAV
 
-```
-  java javazoom.jl.player.jlp localfile.mp3
-```
+The command-line converter is provided by `javazoom.jl.converter.jlc`:
 
-   or
-
-```
-  java javazoom.jl.player.jlp -url http://www.aserver.com/remotefile.mp3
+```bash
+java -cp jlayer.jar javazoom.jl.converter.jlc -p output.wav input.mp3
 ```
 
-  Note : MP3 simple player only works under JVM that supports JavaSound 1.0 (i.e JDK1.3.x+)
+Add `-v` or `-v3` for conversion progress details.
 
-### How to run the advanced (threaded) MP3 player ?
+The same operation is available from Java:
 
-```
-  java javazoom.jl.player.advanced.jlap localfile.mp3
-```
+```java
+import javazoom.jl.converter.Converter;
 
-### Does simple MP3 player support streaming ?
-
-  Yes, use the following command to play music from stream :
-
-```
-  java javazoom.jl.player.jlp -url http://www.shoutcastserver.com:8000
+new Converter().convert("input.mp3", "output.wav");
 ```
 
-  (If JLayer returns without playing SHOUTcast stream then it might mean 
-   that the server expect a winamp like `"User-Agent"` in HTTP request).
+### Play from the command line
 
-### Does JLayer support MPEG 2.5 ?
+The simple player supports local files and URLs:
 
-  Yes, it works fine for all files generated with LAME.
+```bash
+java -cp jlayer.jar javazoom.jl.player.jlp input.mp3
+java -cp jlayer.jar javazoom.jl.player.jlp -url https://example.com/audio.mp3
+```
 
-### Does JLayer support VBR ?
+For threaded playback, use `javazoom.jl.player.advanced.jlap`:
 
-  Yes, It supports VBRI and XING VBR header too. 
+```bash
+java -cp jlayer.jar javazoom.jl.player.advanced.jlap input.mp3
+```
 
-### How to get ID3v1 or ID3v2 tags from JLayer API ?
+## Build from source
 
-  The API provides a `getRawID3v2()` method to get an `InputStream` on ID3v2 frames.
+```bash
+./gradlew build
+```
 
-### How to skip frames to have a seek feature ?
+The project is built with Gradle and targets Java 17. The generated library JAR
+is placed in `build/libs/`.
 
-  See `javazoom.jl.player.advanced.jlap` source to learn how to skip frames.
+## License
+
+JLayer is distributed under the [GNU Lesser General Public License v3.0](LICENSE.txt).
+
+## History
+
+JLayer originated as the JavaZOOM JavaLayer project (1999–2008). See
+[CHANGES.txt](CHANGES.txt) for the historical changelog and the
+[original project homepage](https://web.archive.org/web/20210108055829/http://www.javazoom.net/javalayer/javalayer.html)
+for background information.
