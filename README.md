@@ -1,5 +1,5 @@
 [![Java CI](https://github.com/AgentStart1/jlayer/actions/workflows/test.yml/badge.svg)](https://github.com/AgentStart1/jlayer/actions/workflows/test.yml)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.AgentStart1/jlayer)](https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.storytellerf/jlayer)](https://central.sonatype.com/artifact/io.github.storytellerf/jlayer)
 
 # JLayer
 
@@ -9,18 +9,18 @@ MP3 Decoder in pure Java.
 
 ## Install
 
- * [maven central](https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer)
+ * [maven central](https://central.sonatype.com/artifact/io.github.storytellerf/jlayer)
 
 ```xml
 <dependency>
-    <groupId>io.github.AgentStart1</groupId>
+    <groupId>io.github.storytellerf</groupId>
     <artifactId>jlayer</artifactId>
     <version>${latest.version}</version>
 </dependency>
 ```
 
 ```kotlin
-implementation("io.github.AgentStart1:jlayer:${latest.version}")
+implementation("io.github.storytellerf:jlayer:${latest.version}")
 ```
 
 ## Usage
@@ -54,7 +54,7 @@ and anyone can add his contribution. JLayer is licensed under LGPL (see [LICENSE
 
 ### How to install JLayer ?
 
- * https://central.sonatype.com/artifact/io.github.AgentStart1/jlayer
+ * https://central.sonatype.com/artifact/io.github.storytellerf/jlayer
 
 ### Do I need JMF to run JLayer player ?
 

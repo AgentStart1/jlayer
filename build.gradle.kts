@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.vanniktechMavenPublish)
 }
 
-group = "io.github.AgentStart1"
+group = "io.github.storytellerf"
 version = providers.gradleProperty("version").orElse("1.0.4-SNAPSHOT").get()
 
 java {

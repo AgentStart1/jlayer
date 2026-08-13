@@ -20,7 +20,7 @@ JLayer is a pure Java MP3 decoder library that decodes/plays/converts MPEG 1/2/2
 ## Maven Coordinates
 
 ```
-groupId: io.github.AgentStart1
+groupId: io.github.storytellerf
 artifactId: jlayer
 ```
 

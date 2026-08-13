@@ -28,7 +28,12 @@ import java.util.concurrent.TimeUnit;
 
 import javazoom.jl.player.my.MyJavaSoundAudioDevice;
 import javazoom.jl.player.my.MyJavaSoundAudioDeviceFactory;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.SourceDataLine;
+
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,6 +60,13 @@ class jlpTest {
 
     long time;
 
+    private static boolean hasAudioDevice() {
+        var format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
+                44100, 16, 2, 4, 44100, false);
+        var info = new SourceDataLine.Info(SourceDataLine.class, format);
+        return AudioSystem.isLineSupported(info);
+    }
+
     @BeforeEach
     void setUp() throws Exception {
         props = new Properties();
@@ -75,6 +87,7 @@ class jlpTest {
     @Test
     @DisplayName("original audio device")
     void testPlay() throws Exception {
+        Assumptions.assumeTrue(hasAudioDevice(), "Audio device not available");
         String[] args = new String[1];
         args[0] = filename;
         jlp player = jlp.createInstance(args);
@@ -87,6 +100,7 @@ class jlpTest {
     @Test
     @DisplayName("my audio device w/ volume")
     void testPlay2() throws Exception {
+        Assumptions.assumeTrue(hasAudioDevice(), "Audio device not available");
         String[] args = new String[1];
         args[0] = filename;
         jlp player = jlp.createInstance(args);
@@ -100,6 +114,7 @@ class jlpTest {
     @Test
     @DisplayName("specified my audio device w/ volume")
     void testPlay3() throws Exception {
+        Assumptions.assumeTrue(hasAudioDevice(), "Audio device not available");
         String[] args = new String[1];
         args[0] = filename;
         jlp player = jlp.createInstance(args);
